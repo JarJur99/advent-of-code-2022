@@ -3,8 +3,35 @@
 var headMotions = File.ReadAllLines("../../../HeadMotion.txt");
 
 var head = new Coordinates();
+
+var knot1 = new Coordinates();
+head.AttachTail(knot1);
+
+var knot2 = new Coordinates();
+knot1.AttachTail(knot2);
+
+var knot3 = new Coordinates();
+knot2.AttachTail(knot3);
+
+var knot4 = new Coordinates();
+knot3.AttachTail(knot4);
+
+var knot5 = new Coordinates();
+knot4.AttachTail(knot5);
+
+var knot6 = new Coordinates();
+knot5.AttachTail(knot6);
+
+var knot7 = new Coordinates();
+knot6.AttachTail(knot7);
+
+var knot8 = new Coordinates();
+knot7.AttachTail(knot8);
+
 var tail = new Coordinates();
-var visited = new Dictionary<string, int> { { tail.ToString(), 1 } };
+knot8.AttachTail(tail);
+// head.AttachTail(tail);
+
 
 foreach (var motion in headMotions)
 {
@@ -14,27 +41,26 @@ foreach (var motion in headMotions)
     
     for (var i = 0; i < distance; i++)
     {
-        var wasDiagonal = head.IsDiagonalTo(tail);
-        var oldHead = new Coordinates(head);
-
-        head.Move(direction);
-        if (!head.IsInRange(tail, 1) && !wasDiagonal)
-        {
-            tail.Move(direction);
-        }
-
-        if (!head.IsInRange(tail, 1) && wasDiagonal)
-        {
-            tail.MoveTo(oldHead);
-        }
-        
-        if (!visited.ContainsKey(tail.ToString()))
-        {
-            visited.Add(tail.ToString(), 0);
-        }
-
-        visited[tail.ToString()]++;
+        head.SimulateAll(direction);
     }
 }
 
-Console.WriteLine(visited.Keys.Count);
+Console.WriteLine(tail.Visited.Keys.Count);
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
